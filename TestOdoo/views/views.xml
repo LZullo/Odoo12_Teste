@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <!-- Adicionando fields em CRM Clientes -->
+        <record id="TestOdoo_res_partner_form_view" model="ir.ui.view">
+            <field name="name">testodoo.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="before">
+                    <field name="units_number"/>
+                    <field name="blocks_number"/>
+                    <field name="residents_number"/>
+                    <field name="gate_type"/>
+                    <field name="gate_hour"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Adicionando fields em Lead Form-->
+        <record id="TestOdoo_crm_form_view_leads" model="ir.ui.view">
+            <field name="name">testodoo.crm.form.leads</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='website']" position="before">
+                        <field name="units_number"/>
+                        <field name="blocks_number"/>
+                        <field name="residents_number"/>
+                        <field name="gate_type"/>
+                        <field name="gate_hour"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Adicionando fields em Lead Opportunity -->
+        <record id="TestOdoo_crm_opp_view_leads" model="ir.ui.view">
+            <field name="name">testodoo.crm.opp.leads</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_deadline']" position="before">
+                    <field name="units_number"/>
+                    <field name="blocks_number"/>
+                    <field name="residents_number"/>
+                    <field name="gate_type"/>
+                    <field name="gate_hour"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

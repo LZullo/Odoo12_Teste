@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="crm_customer_template">
+
+        <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+        <div class="header">
+            <div class="o_clean_header">
+                <style type="text/css">
+                .row div{ 
+                    font-size: 0.9rem !important;
+                }
+                </style>
+            </div>
+            <div class="row">
+                <div class="col-3" style="text-align: left;">
+                    <img class="pt-1" t-att-src="'/TestOdoo/static/src/img/porter_group.jpg'" alt="Logo" style="width: 1000px;"/>
+                </div>
+
+            </div>
+            <div class="oe_structure"/>
+        </div>
+
+        <div class="article o_report_layout_clean" style="margin-top:30px;">
+            <div class="page">
+                 <style type="text/css">
+                .row div{ 
+                    font-size: 1.5rem !important;
+                }
+                </style>
+                <div class="row m-1 p-1">
+                    <div class="col p-1" style="border: 1px solid gray; border-right: none; border-left:none">
+                        <div class="col-12 text-center">
+                            <h5><b>DADOS DO CLIENTE</b></h5>
+                        </div>
+                        <div class="oe_structure"/>
+                    </div>
+                </div>
+                <div class="row m-1 p-1">
+                    <div class="col-5">
+                        <ul class="list-unstyled">
+                            <li>Nome:<span t-field="doc.partner_id.name"/></li>
+                            <li>Quantidade de unidades: <span t-field="doc.partner_id.units_number"/></li>
+                            <li>Quantidade de blocos: <span t-field="doc.partner_id.blocks_number"/></li>
+                            <li>Quantidade de moradores: <span t-field="doc.partner_id.residents_number"/></li>
+                            <li>Tipo de portaria: <span t-field="doc.partner_id.gate_type"/></li>
+                            <li>Horário da portaria: <span t-field="doc.partner_id.gate_hour"/></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer o_boxed_footer">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <span class="text-capitalize" t-esc="context_timestamp(datetime.datetime.now()).strftime('%A %d %B %Y %H:%M')"/>
+                </div>
+                <!-- <div t-field="doc.company_id.report_footer"/> -->
+                <div class="col-6 text-right">
+                    <div t-if="report_type == 'pdf'">
+                        Página: <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+    <template id="crm_customer_template_print_doc">
+        <t t-call="web.report_layout">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="TestOdoo.crm_customer_template"/>
+            </t>
+        </t>
+    </template>
+
+    <data>
+        <report
+                id="TestOdoo_crm_customer_print"
+                string="Cliente"
+                model="crm.lead"
+                report_type="qweb-pdf"
+                file="TestOdoo.crm_customer_template_print_doc"
+                name="TestOdoo.crm_customer_template_print_doc"
+                print_report_name="'%s' % (object.name)"/>
+    </data>
+</odoo>

@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <!-- Ajuste Filtros Relatório CRM Clientes -->
+        <record model="ir.ui.view" id="TestOdoo_report_view_search_2">
+            <field name="name">testodoo.crm.lead.search.2</field>
+            <field name="model">crm.lead</field>
+            <field name="arch" type="xml">
+                <search string="Cliente">
+                    <field name="partner_id"/>
+                    <field name="units_number"/>
+                    <field name="blocks_number"/>
+                    <field name="residents_number"/>
+                    <field name="gate_type"/>
+                    <field name="gate_hour"/>
+                    <group expand='0' string='Group By...'>
+                        <filter string="Cliente" name="partner_id" context="{'group_by' : 'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Relatório CRM Clientes -->
+        <record id="TestOdoo_report_tree_view" model="ir.ui.view">
+            <field name="name">testodoo.crm.lead.report.form</field>
+            <field name="model">crm.lead</field>
+            <field name="search_view_id" ref="TestOdoo_report_view_search_2" />
+            <field name="arch" type="xml">
+                <tree create="false" edit="false">
+                    <field name="partner_id"/>
+                    <field name="units_number"/>
+                    <field name="blocks_number"/>
+                    <field name="residents_number"/>
+                    <field name="gate_type"/>
+                    <field name="gate_hour"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action e Menu Relatório CRM Clientes -->
+        <record model="ir.actions.act_window" id="TestOdoo_report_action_view">
+            <field name="name">Relatorio</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="TestOdoo_report_view_search_2" />
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('TestOdoo_report_tree_view')})]"/>
+
+        </record>
+
+        <menuitem name="Clientes" action="TestOdoo_report_action_view" id="menu_teste_custumer_repot"
+                  parent="crm.crm_menu_report"  groups="base.group_no_one"/>
+    </data>
+</odoo>
