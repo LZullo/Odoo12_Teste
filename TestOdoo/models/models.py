@@ -26,15 +26,15 @@ class TestOdoo_Customer(models.Model):
 class TestOdoo_Lead(models.Model):
     _inherit = "crm.lead"
 
-    # selectable_fields = ['units_number', 'partner_id', 'blocks_number', 'residents_number', 'gate_type','gate_hour']
-    #
-    # @api.model
-    # def fields_get(self, allfields=None, attributes=None):
-    #     res = super(TestOdoo_Lead, self).fields_get(allfields, attributes=attributes)
-    #     not_selectable_fields = set(self._fields.keys()) - set(self.selectable_fields)
-    #     for field in not_selectable_fields:
-    #         res[field]['selectable'] = False
-    #     return res
+     selectable_fields = ['units_number', 'partner_id', 'blocks_number', 'residents_number', 'gate_type','gate_hour']
+    
+     @api.model
+     def fields_get(self, allfields=None, attributes=None):
+         res = super(TestOdoo_Lead, self).fields_get(allfields, attributes=attributes)
+         not_selectable_fields = set(self._fields.keys()) - set(self.selectable_fields)
+         for field in not_selectable_fields:
+             res[field]['selectable'] = False
+         return res
 
     units_number= fields.Integer(related='partner_id.units_number',string="Quantidade de unidades")
     blocks_number= fields.Integer(related='partner_id.blocks_number',string="Quantidade de blocos")
